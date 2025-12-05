@@ -3957,7 +3957,7 @@ class NewsAnalyzer:
 
         return html_content
 
-    def run(self, content: str) -> None:
+    def run(self, content: str) -> str:
         """执行分析流程"""
         try:
             print(content)
@@ -3968,6 +3968,7 @@ class NewsAnalyzer:
             results, id_to_name, failed_ids = self._crawl_data()
 
             html_content = self._execute_mode_strategy(content, mode_strategy, results, id_to_name, failed_ids)
+            return html_content
             # print("最终返回")
             # output_path = "output.html"  # 你也可以改路径
             # with open(output_path, "w", encoding="utf-8") as f:
@@ -3983,12 +3984,14 @@ class NewsAnalyzer:
 def main():
     try:
         analyzer = NewsAnalyzer()
-        analyzer.run("""
+        result = analyzer.run("""
         时政
         档案封存
         吸毒
         
         """)
+
+        print(result)
 
     except FileNotFoundError as e:
         print(f"❌ 配置文件错误: {e}")
